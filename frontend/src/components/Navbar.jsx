@@ -18,7 +18,12 @@ export function Navbar() {
           <span className="logo-text">CodeArena</span>
         </Link>
       </div>
+
       <div className="nav-links">
+        <Link to="/problems" className="nav-link">
+          Problems
+        </Link>
+
         {user ? (
           <>
             <Link to="/me" className="nav-link nav-profile">

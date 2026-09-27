@@ -6,6 +6,8 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { ProblemsPage } from './pages/ProblemsPage';
+import { ProblemDetailPage } from './pages/ProblemDetailPage';
 import './App.css';
 
 function HomePage() {
@@ -44,29 +46,38 @@ function HomePage() {
           Welcome to <span className="hero-gradient-text">CodeArena</span>
         </h2>
         <p className="hero-subtitle">
-          Module 2: User Authentication & Role Authorization (USER / ADMIN) initialized and active.
+          Module 3: Problem Bank & Topic Hierarchy (12 Topics &bull; 36 Problems &bull; Test Cases) Active.
         </p>
 
         <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+          <Link to="/problems" className="btn btn-primary">
+            Explore Problems &rarr;
+          </Link>
           {user ? (
-            <Link to="/me" className="btn btn-primary">
-              View Profile ({user.username})
+            <Link to="/me" className="btn btn-secondary">
+              Profile ({user.username})
             </Link>
           ) : (
-            <>
-              <Link to="/login" className="btn btn-primary">
-                Sign In
-              </Link>
-              <Link to="/register" className="btn btn-secondary">
-                Register Account
-              </Link>
-            </>
+            <Link to="/login" className="btn btn-secondary">
+              Sign In
+            </Link>
           )}
         </div>
       </section>
 
-      {/* Infrastructure & Auth Status Grid */}
+      {/* Infrastructure & Module Status Grid */}
       <div className="cards-grid">
+        {/* Problems Module Card */}
+        <div className="card">
+          <div className="card-icon">📚</div>
+          <h3 className="card-title">Problem System</h3>
+          <p className="card-desc">36 Challenges across 12 topics (Arrays, DP, Graphs, etc.) with public/hidden test cases.</p>
+          <div className="card-status">
+            <span>Module Status</span>
+            <span className="status-indicator status-active">● Active</span>
+          </div>
+        </div>
+
         {/* Auth Module Card */}
         <div className="card">
           <div className="card-icon">🔐</div>
@@ -101,7 +112,7 @@ function HomePage() {
         <div className="card">
           <div className="card-icon">🐘</div>
           <h3 className="card-title">PostgreSQL Database</h3>
-          <p className="card-desc">SQLAlchemy 2.x & Alembic migrations for `users` table.</p>
+          <p className="card-desc">SQLAlchemy 2.x & Alembic schema for topics, problems, and test cases.</p>
           <div className="card-status">
             <span>Status</span>
             <span className="status-indicator">
@@ -115,29 +126,10 @@ function HomePage() {
             </span>
           </div>
         </div>
-
-        {/* Redis Card */}
-        <div className="card">
-          <div className="card-icon">🔴</div>
-          <h3 className="card-title">Redis Cache</h3>
-          <p className="card-desc">Async Redis client configuration for session & execution queueing.</p>
-          <div className="card-status">
-            <span>Status</span>
-            <span className="status-indicator">
-              {loading ? (
-                <span className="status-pending">Checking...</span>
-              ) : health?.services?.redis?.status === 'connected' ? (
-                <span className="status-active">● Connected (Port 6379)</span>
-              ) : (
-                <span className="status-error">● Disconnected</span>
-              )}
-            </span>
-          </div>
-        </div>
       </div>
 
       <footer className="footer">
-        CodeArena Platform &bull; Module 2 Authentication &bull; Academic Mini-Project
+        CodeArena Platform &bull; Module 3 Problems & Topics &bull; Academic Mini-Project
       </footer>
     </div>
   );
@@ -154,6 +146,8 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/problems" element={<ProblemsPage />} />
+              <Route path="/problems/:id" element={<ProblemDetailPage />} />
               <Route
                 path="/me"
                 element={

@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.health import router as health_router
 from app.api.auth import router as auth_router
 from app.api.admin import router as admin_router
+from app.api.topics import router as topics_router
+from app.api.problems import router as problems_router
 from app.core.config import settings
 from app.core.db import engine
 from app.core.redis import redis_client
@@ -23,7 +25,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description="CodeArena Backend API",
-    version="0.2.0",
+    version="0.3.0",
     lifespan=lifespan,
 )
 
@@ -52,6 +54,18 @@ app.include_router(
     tags=["Admin"],
 )
 
+app.include_router(
+    topics_router,
+    prefix=f"{settings.API_V1_STR}/topics",
+    tags=["Topics"],
+)
+
+app.include_router(
+    problems_router,
+    prefix=f"{settings.API_V1_STR}/problems",
+    tags=["Problems"],
+)
+
 
 @app.get("/", tags=["Root"])
 async def root():
@@ -59,5 +73,6 @@ async def root():
         "message": "Welcome to CodeArena API",
         "docs": "/docs",
         "health": "/health",
-        "auth": f"{settings.API_V1_STR}/auth",
+        "topics": f"{settings.API_V1_STR}/topics",
+        "problems": f"{settings.API_V1_STR}/problems",
     }
