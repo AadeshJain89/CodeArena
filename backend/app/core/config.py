@@ -10,6 +10,19 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     SECRET_KEY: str = "default_secret_key_change_in_production"
 
+    # JWT Settings
+    JWT_SECRET_KEY: str = "super_secret_jwt_key_codearena_dev_min32chars"
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
+
+    # CORS Settings
+    ALLOWED_ORIGINS: list[str] = [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",
+    ]
+
+
     # PostgreSQL
     POSTGRES_USER: str = "codearena_user"
     POSTGRES_PASSWORD: str = "codearena_password"
