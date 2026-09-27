@@ -1,9 +1,13 @@
 import enum
 from datetime import datetime, timezone
+from typing import List, TYPE_CHECKING
 from sqlalchemy import String, Boolean, Enum as SQLEnum, DateTime, Integer, func
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
+
+if TYPE_CHECKING:
+    from app.models.submission import Submission
 
 
 class UserRole(str, enum.Enum):
@@ -36,6 +40,12 @@ class User(Base):
         server_default=func.now(),
         onupdate=lambda: datetime.now(timezone.utc),
         nullable=False,
+    )
+
+    submissions: Mapped[List["Submission"]] = relationship(
+        "Submission",
+        back_populates="user",
+        cascade="all, delete-orphan",
     )
 
     def __repr__(self) -> str:

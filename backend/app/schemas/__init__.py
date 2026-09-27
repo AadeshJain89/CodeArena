@@ -3,6 +3,12 @@ from app.schemas.topic import TopicResponse
 from app.schemas.test_case import TestCasePublic
 from app.schemas.problem import ProblemListItem, ProblemDetail, PaginatedProblemResponse
 from app.schemas.execution import ExecutionRequest, ExecutionResponse, TestResultItem
+from app.schemas.submission import (
+    SubmissionCreate,
+    SubmissionResponse,
+    SubmissionSummaryResponse,
+    SubmissionTestResultResponse,
+)
 
 __all__ = [
     "UserRegister",
@@ -18,4 +24,8 @@ __all__ = [
     "ExecutionRequest",
     "ExecutionResponse",
     "TestResultItem",
+    "SubmissionCreate",
+    "SubmissionResponse",
+    "SubmissionSummaryResponse",
+    "SubmissionTestResultResponse",
 ]

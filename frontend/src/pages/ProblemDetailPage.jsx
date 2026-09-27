@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { problemService } from '../services/problemService';
 import { executionService } from '../services/executionService';
+import { submissionService } from '../services/submissionService';
 import { useAuth } from '../context/AuthContext';
 
 const DEFAULT_STARTER = {
@@ -40,12 +41,14 @@ export function ProblemDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Execution state
+  // Execution & Submission state
   const [language, setLanguage] = useState('python');
   const [sourceCode, setSourceCode] = useState('');
   const [executing, setExecuting] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [execError, setExecError] = useState(null);
   const [execResult, setExecResult] = useState(null);
+  const [isSubmission, setIsSubmission] = useState(false);
 
   useEffect(() => {
     async function loadProblemDetail() {
@@ -104,6 +107,7 @@ export function ProblemDetailPage() {
     setExecuting(true);
     setExecError(null);
     setExecResult(null);
+    setIsSubmission(false);
 
     try {
       const result = await executionService.executeCode(token, {
@@ -116,6 +120,35 @@ export function ProblemDetailPage() {
       setExecError(err.message);
     } finally {
       setExecuting(false);
+    }
+  };
+
+  const handleSubmitCode = async () => {
+    if (!token) {
+      setExecError('Please log in to submit your solution.');
+      return;
+    }
+    if (!sourceCode.trim()) {
+      setExecError('Source code cannot be empty.');
+      return;
+    }
+
+    setSubmitting(true);
+    setExecError(null);
+    setExecResult(null);
+    setIsSubmission(true);
+
+    try {
+      const result = await submissionService.createSubmission(token, {
+        problemId: id,
+        language,
+        sourceCode,
+      });
+      setExecResult(result);
+    } catch (err) {
+      setExecError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -288,9 +321,9 @@ export function ProblemDetailPage() {
                 <option value="cpp">C++ 17</option>
               </select>
               <button
-                className="btn btn-primary btn-sm"
+                className="btn btn-secondary btn-sm"
                 onClick={handleRunCode}
-                disabled={executing}
+                disabled={executing || submitting}
               >
                 {executing ? (
                   <>
@@ -299,6 +332,20 @@ export function ProblemDetailPage() {
                   </>
                 ) : (
                   '▶ Run Code'
+                )}
+              </button>
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={handleSubmitCode}
+                disabled={executing || submitting}
+              >
+                {submitting ? (
+                  <>
+                    <div className="spinner" style={{ width: '14px', height: '14px', borderWidth: '2px' }}></div>
+                    Submitting...
+                  </>
+                ) : (
+                  '🚀 Submit Code'
                 )}
               </button>
             </div>

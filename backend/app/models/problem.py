@@ -9,7 +9,7 @@ from app.models.base import Base
 if TYPE_CHECKING:
     from app.models.topic import Topic
     from app.models.test_case import TestCase
-
+    from app.models.submission import Submission
 
 class ProblemDifficulty(str, enum.Enum):
     EASY = "EASY"
@@ -56,6 +56,11 @@ class Problem(Base):
     )
     test_cases: Mapped[List["TestCase"]] = relationship(
         "TestCase",
+        back_populates="problem",
+        cascade="all, delete-orphan",
+    )
+    submissions: Mapped[List["Submission"]] = relationship(
+        "Submission",
         back_populates="problem",
         cascade="all, delete-orphan",
     )

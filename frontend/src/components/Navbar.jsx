@@ -26,6 +26,9 @@ export function Navbar() {
 
         {user ? (
           <>
+            <Link to="/submissions" className="nav-link">
+              Submissions
+            </Link>
             <Link to="/me" className="nav-link nav-profile">
               <span className="role-tag">{user.role}</span>
               <span>{user.username}</span>
