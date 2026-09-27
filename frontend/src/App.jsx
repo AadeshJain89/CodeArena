@@ -9,6 +9,7 @@ import { ProfilePage } from './pages/ProfilePage';
 import { ProblemsPage } from './pages/ProblemsPage';
 import { ProblemDetailPage } from './pages/ProblemDetailPage';
 import { SubmissionsPage } from './pages/SubmissionsPage';
+import { DiagnosticPage } from './pages/DiagnosticPage';
 import './App.css';
 
 function HomePage() {
@@ -149,6 +150,14 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/problems" element={<ProblemsPage />} />
               <Route path="/problems/:id" element={<ProblemDetailPage />} />
+              <Route
+                path="/diagnostic"
+                element={
+                  <ProtectedRoute>
+                    <DiagnosticPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/submissions"
                 element={

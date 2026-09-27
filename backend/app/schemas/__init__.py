@@ -9,6 +9,13 @@ from app.schemas.submission import (
     SubmissionSummaryResponse,
     SubmissionTestResultResponse,
 )
+from app.schemas.diagnostic import (
+    DiagnosticQuestionItem,
+    DiagnosticStartResponse,
+    DiagnosticSubmitRequest,
+    DiagnosticResultResponse,
+    TopicResultItem,
+)
 
 __all__ = [
     "UserRegister",
@@ -28,4 +35,9 @@ __all__ = [
     "SubmissionResponse",
     "SubmissionSummaryResponse",
     "SubmissionTestResultResponse",
+    "DiagnosticQuestionItem",
+    "DiagnosticStartResponse",
+    "DiagnosticSubmitRequest",
+    "DiagnosticResultResponse",
+    "TopicResultItem",
 ]

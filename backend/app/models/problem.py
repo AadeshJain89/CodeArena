@@ -1,7 +1,7 @@
 import enum
 from datetime import datetime, timezone
 from typing import List, Optional, Any, TYPE_CHECKING
-from sqlalchemy import String, Text, DateTime, Integer, Enum as SQLEnum, JSON, func
+from sqlalchemy import String, Text, DateTime, Integer, Boolean, Enum as SQLEnum, JSON, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
@@ -35,6 +35,12 @@ class Problem(Base):
     examples: Mapped[Optional[Any]] = mapped_column(JSON, nullable=True)
     starter_code: Mapped[Optional[Any]] = mapped_column(JSON, nullable=True)
     solution_language_support: Mapped[Optional[Any]] = mapped_column(JSON, nullable=True)
+    is_diagnostic: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false", nullable=False, index=True)
+    diagnostic_options: Mapped[Optional[Any]] = mapped_column(JSON, nullable=True)
+    diagnostic_correct_option: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    question_type: Mapped[Optional[str]] = mapped_column(String(50), nullable=True, default="CODING")
+    options: Mapped[Optional[Any]] = mapped_column(JSON, nullable=True)
+    correct_option: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),
