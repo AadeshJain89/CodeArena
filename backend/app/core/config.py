@@ -22,6 +22,17 @@ class Settings(BaseSettings):
         "http://localhost:3000",
     ]
 
+    # Docker Code Execution Settings
+    CODE_EXECUTION_TIMEOUT_SECONDS: float = 5.0
+    CODE_EXECUTION_MEMORY_LIMIT_MB: int = 128
+    CODE_EXECUTION_CPU_LIMIT: float = 1.0
+    CODE_EXECUTION_PIDS_LIMIT: int = 64
+    CODE_EXECUTION_MAX_OUTPUT_BYTES: int = 65536
+    CODE_EXECUTION_MAX_SOURCE_BYTES: int = 65536
+    PYTHON_DOCKER_IMAGE: str = "python:3.12-alpine"
+    CPP_DOCKER_IMAGE: str = "gcc:latest"
+
+
 
     # PostgreSQL
     POSTGRES_USER: str = "codearena_user"

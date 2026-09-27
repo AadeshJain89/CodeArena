@@ -7,6 +7,7 @@ from app.api.auth import router as auth_router
 from app.api.admin import router as admin_router
 from app.api.topics import router as topics_router
 from app.api.problems import router as problems_router
+from app.api.execution import router as execution_router
 from app.core.config import settings
 from app.core.db import engine
 from app.core.redis import redis_client
@@ -25,7 +26,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description="CodeArena Backend API",
-    version="0.3.0",
+    version="0.4.0",
     lifespan=lifespan,
 )
 
@@ -66,6 +67,12 @@ app.include_router(
     tags=["Problems"],
 )
 
+app.include_router(
+    execution_router,
+    prefix=f"{settings.API_V1_STR}/execute",
+    tags=["Execution"],
+)
+
 
 @app.get("/", tags=["Root"])
 async def root():
@@ -75,4 +82,5 @@ async def root():
         "health": "/health",
         "topics": f"{settings.API_V1_STR}/topics",
         "problems": f"{settings.API_V1_STR}/problems",
+        "execute": f"{settings.API_V1_STR}/execute",
     }

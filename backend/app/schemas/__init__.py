@@ -2,6 +2,7 @@ from app.schemas.user import UserRegister, UserLogin, UserResponse, Token, Token
 from app.schemas.topic import TopicResponse
 from app.schemas.test_case import TestCasePublic
 from app.schemas.problem import ProblemListItem, ProblemDetail, PaginatedProblemResponse
+from app.schemas.execution import ExecutionRequest, ExecutionResponse, TestResultItem
 
 __all__ = [
     "UserRegister",
@@ -14,4 +15,7 @@ __all__ = [
     "ProblemListItem",
     "ProblemDetail",
     "PaginatedProblemResponse",
+    "ExecutionRequest",
+    "ExecutionResponse",
+    "TestResultItem",
 ]
