@@ -16,12 +16,14 @@ from app.schemas.submission import (
 )
 from app.services.execution_service import ExecutionService
 from app.services.slre_service import SLREService
+from app.services.gamification_service import GamificationService
 
 
 class SubmissionService:
     def __init__(self):
         self.execution_service = ExecutionService()
         self.slre_service = SLREService()
+        self.gamification_service = GamificationService()
 
     async def create_submission(
         self,
@@ -111,6 +113,9 @@ class SubmissionService:
 
         # Trigger SLRE skill profile updates for problem topics
         await self.slre_service.process_submission_for_skills(db, submission=submission)
+
+        # Trigger Gamification system updates
+        await self.gamification_service.process_submission_for_gamification(db, submission=submission)
         await db.commit()
 
         return SubmissionResponse(

@@ -18,6 +18,7 @@ from app.schemas.diagnostic import (
 )
 from app.schemas.skills import SkillProfileResponse
 from app.schemas.recommendation import RecommendationResponse
+from app.schemas.gamification import UserGamificationResponse
 
 __all__ = [
     "UserRegister",
@@ -44,4 +45,5 @@ __all__ = [
     "TopicResultItem",
     "SkillProfileResponse",
     "RecommendationResponse",
+    "UserGamificationResponse",
 ]

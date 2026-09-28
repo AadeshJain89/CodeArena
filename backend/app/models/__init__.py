@@ -11,6 +11,7 @@ from app.models.diagnostic_response import DiagnosticResponse
 from app.models.diagnostic_assessment_question import DiagnosticAssessmentQuestion
 from app.models.skill_profile import SkillProfile
 from app.models.recommendation import Recommendation
+from app.models.user_gamification import UserGamification
 
 __all__ = [
     "Base",
@@ -28,4 +29,5 @@ __all__ = [
     "DiagnosticAssessmentQuestion",
     "SkillProfile",
     "Recommendation",
+    "UserGamification",
 ]

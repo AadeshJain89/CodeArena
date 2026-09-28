@@ -12,6 +12,7 @@ import { SubmissionsPage } from './pages/SubmissionsPage';
 import { DiagnosticPage } from './pages/DiagnosticPage';
 import { SkillsPage } from './pages/SkillsPage';
 import { RecommendationsPage } from './pages/RecommendationsPage';
+import { GamificationPage } from './pages/GamificationPage';
 import './App.css';
 
 function HomePage() {
@@ -173,6 +174,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <RecommendationsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/gamification"
+                element={
+                  <ProtectedRoute>
+                    <GamificationPage />
                   </ProtectedRoute>
                 }
               />

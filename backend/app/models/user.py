@@ -1,6 +1,6 @@
 import enum
 from datetime import datetime, timezone
-from typing import List, TYPE_CHECKING
+from typing import List, Optional, TYPE_CHECKING
 from sqlalchemy import String, Boolean, Enum as SQLEnum, DateTime, Integer, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     from app.models.diagnostic_assessment import DiagnosticAssessment
     from app.models.skill_profile import SkillProfile
     from app.models.recommendation import Recommendation
+    from app.models.user_gamification import UserGamification
 
 
 class UserRole(str, enum.Enum):
@@ -63,6 +64,12 @@ class User(Base):
     recommendations: Mapped[List["Recommendation"]] = relationship(
         "Recommendation",
         back_populates="user",
+        cascade="all, delete-orphan",
+    )
+    gamification: Mapped[Optional["UserGamification"]] = relationship(
+        "UserGamification",
+        back_populates="user",
+        uselist=False,
         cascade="all, delete-orphan",
     )
 

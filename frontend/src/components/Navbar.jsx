@@ -35,6 +35,9 @@ export function Navbar() {
             <Link to="/recommendations" className="nav-link">
               Recommendations
             </Link>
+            <Link to="/gamification" className="nav-link">
+              Gamification
+            </Link>
             <Link to="/submissions" className="nav-link">
               Submissions
             </Link>
