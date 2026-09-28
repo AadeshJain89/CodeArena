@@ -32,6 +32,9 @@ export function Navbar() {
             <Link to="/skills" className="nav-link">
               Skill Profile
             </Link>
+            <Link to="/recommendations" className="nav-link">
+              Recommendations
+            </Link>
             <Link to="/submissions" className="nav-link">
               Submissions
             </Link>

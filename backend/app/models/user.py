@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from app.models.submission import Submission
     from app.models.diagnostic_assessment import DiagnosticAssessment
     from app.models.skill_profile import SkillProfile
+    from app.models.recommendation import Recommendation
 
 
 class UserRole(str, enum.Enum):
@@ -56,6 +57,11 @@ class User(Base):
     )
     skill_profiles: Mapped[List["SkillProfile"]] = relationship(
         "SkillProfile",
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
+    recommendations: Mapped[List["Recommendation"]] = relationship(
+        "Recommendation",
         back_populates="user",
         cascade="all, delete-orphan",
     )

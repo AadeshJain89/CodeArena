@@ -11,6 +11,7 @@ from app.api.execution import router as execution_router
 from app.api.submissions import router as submissions_router
 from app.api.diagnostic import router as diagnostic_router
 from app.api.skills import router as skills_router
+from app.api.recommendation import router as recommendation_router
 from app.core.config import settings
 from app.core.db import engine
 from app.core.redis import redis_client
@@ -92,6 +93,12 @@ app.include_router(
     skills_router,
     prefix=f"{settings.API_V1_STR}",
     tags=["Skills"],
+)
+
+app.include_router(
+    recommendation_router,
+    prefix=f"{settings.API_V1_STR}",
+    tags=["Recommendations"],
 )
 
 

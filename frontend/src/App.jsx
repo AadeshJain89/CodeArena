@@ -11,6 +11,7 @@ import { ProblemDetailPage } from './pages/ProblemDetailPage';
 import { SubmissionsPage } from './pages/SubmissionsPage';
 import { DiagnosticPage } from './pages/DiagnosticPage';
 import { SkillsPage } from './pages/SkillsPage';
+import { RecommendationsPage } from './pages/RecommendationsPage';
 import './App.css';
 
 function HomePage() {
@@ -164,6 +165,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <SkillsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/recommendations"
+                element={
+                  <ProtectedRoute>
+                    <RecommendationsPage />
                   </ProtectedRoute>
                 }
               />
