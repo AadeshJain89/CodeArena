@@ -21,11 +21,18 @@ export const authService = {
   /**
    * Authenticate user & retrieve JWT token
    */
-  async login(loginIdentifier, password) {
+  async login(credentials, password) {
+    const isObject = typeof credentials === 'object' && credentials !== null;
+    const loginValue = isObject ? (credentials.login || credentials.username) : credentials;
+    const passwordValue = isObject ? credentials.password : password;
+
     const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ login: loginIdentifier, password }),
+      body: JSON.stringify({
+        login: loginValue,
+        password: passwordValue,
+      }),
     });
 
     const data = await response.json();

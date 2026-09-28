@@ -51,7 +51,7 @@ class DockerExecutor:
         b64_stdin = base64.b64encode(stdin_input.encode("utf-8")).decode("utf-8")
 
         # Python wrapper runner script executed inside container
-        runner_script = f"""import sys, io, base64, ast, inspect
+        runner_script = f"""import sys, io, base64, ast, inspect, typing
 
 code_str = base64.b64decode('{b64_code}').decode('utf-8')
 stdin_str = base64.b64decode('{b64_stdin}').decode('utf-8')
@@ -87,9 +87,26 @@ try:
                     parsed_args.append([int(p) for p in parts])
                 else:
                     parsed_args.append(line)
-        
-        # Call solve function
-        res = solve_func(*parsed_args[:len(inspect.signature(solve_func).parameters)])
+
+        # Adjust parsed arguments based on solve_func parameter inspection
+        sig = inspect.signature(solve_func)
+        params = list(sig.parameters.values())
+
+        final_args = []
+        for i, val in enumerate(parsed_args):
+            if i < len(params):
+                param = params[i]
+                ann_str = str(param.annotation).lower() if param.annotation != inspect.Parameter.empty else ""
+                wants_list = "list" in ann_str or typing.get_origin(param.annotation) is list or param.annotation is list
+
+                if wants_list and not isinstance(val, (list, tuple)):
+                    final_args.append([val])
+                else:
+                    final_args.append(val)
+            else:
+                final_args.append(val)
+
+        res = solve_func(*final_args[:len(params)])
         if res is not None:
             if isinstance(res, (list, tuple)):
                 output = " ".join(str(x) for x in res)

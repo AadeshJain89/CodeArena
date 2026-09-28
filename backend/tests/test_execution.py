@@ -341,3 +341,47 @@ int main() {
     assert data["status"] == "PASSED"
     assert data["passed_tests"] > 0
 
+
+@pytest.mark.asyncio
+async def test_16_solve_function_single_element_list_input_passes():
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+        response = await ac.post(
+            "/api/v1/execute",
+            headers=get_auth_header(),
+            json={
+                "problem_id": 1,
+                "language": "python",
+                "source_code": "def solve(nums: list[int]) -> int:\n    return max(nums)\n",
+            },
+        )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["status"] == "PASSED"
+    assert data["passed_tests"] == data["total_tests"]
+    assert data["failed_tests"] == 0
+    # Ensure test case 3 (input "42") passed
+    hidden_tcs = [tc for tc in data["test_results"] if tc["is_hidden"]]
+    assert len(hidden_tcs) >= 2
+    for tc in hidden_tcs:
+        assert tc["status"] == "PASSED"
+
+
+@pytest.mark.asyncio
+async def test_17_solve_function_multi_element_list_input_passes():
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+        response = await ac.post(
+            "/api/v1/execute",
+            headers=get_auth_header(),
+            json={
+                "problem_id": 1,
+                "language": "python",
+                "source_code": "def solve(nums: list[int]) -> int:\n    return max(nums)\n",
+            },
+        )
+    assert response.status_code == 200
+    data = response.json()
+    # Check test case 1 (input "1 5 3 9 2")
+    tc1 = [tc for tc in data["test_results"] if tc["test_number"] == 1][0]
+    assert tc1["status"] == "PASSED"
+    assert tc1["actual_output"] == "9"
+    assert tc1["expected_output"] == "9"
