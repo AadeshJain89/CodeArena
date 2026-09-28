@@ -60,23 +60,4 @@ export const authService = {
     }
     return data;
   },
-
-  /**
-   * Test protected admin endpoint
-   */
-  async testAdminEndpoint(token) {
-    const response = await fetch(`${API_BASE_URL}/api/v1/admin/test`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.detail || 'Admin access forbidden');
-    }
-    return data;
-  },
 };

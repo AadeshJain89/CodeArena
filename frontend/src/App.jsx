@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
@@ -18,125 +17,113 @@ import { AdminPage } from './pages/AdminPage';
 import './App.css';
 
 function HomePage() {
-  const [health, setHealth] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const { user } = useAuth();
-
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-
-  useEffect(() => {
-    async function checkHealth() {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch(`${API_BASE}/health`);
-        if (!res.ok) {
-          throw new Error(`HTTP error ${res.status}`);
-        }
-        const data = await res.json();
-        setHealth(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    checkHealth();
-  }, [API_BASE]);
 
   return (
     <div className="container">
       {/* Hero Section */}
       <section className="hero">
-        <h2 className="hero-title">
-          Welcome to <span className="hero-gradient-text">CodeArena</span>
-        </h2>
-        <p className="hero-subtitle">
-          Module 3: Problem Bank & Topic Hierarchy (12 Topics &bull; 36 Problems &bull; Test Cases) Active.
+        <h1 className="hero-title" style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>
+          Master Algorithmic Problem Solving with <span className="hero-gradient-text">CodeArena</span>
+        </h1>
+        <p className="hero-subtitle" style={{ fontSize: '1.15rem', color: 'var(--text-muted)', maxWidth: '750px', margin: '0 auto 2rem auto', lineHeight: 1.6 }}>
+          Practice coding problems, evaluate your solutions securely, understand your skills, and get personalized problem recommendations.
         </p>
 
-        <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-          <Link to="/problems" className="btn btn-primary">
-            Explore Problems &rarr;
-          </Link>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           {user ? (
-            <Link to="/me" className="btn btn-secondary">
-              Profile ({user.username})
-            </Link>
+            <>
+              <Link to="/dashboard" className="btn btn-primary">
+                📊 Go to Dashboard
+              </Link>
+              <Link to="/diagnostic" className="btn btn-secondary">
+                🧠 Take Skill Diagnostic
+              </Link>
+            </>
           ) : (
-            <Link to="/login" className="btn btn-secondary">
-              Sign In
-            </Link>
+            <>
+              <Link to="/register" className="btn btn-primary">
+                🚀 Get Started
+              </Link>
+              <Link to="/problems" className="btn btn-secondary">
+                💻 Explore Problems
+              </Link>
+            </>
           )}
         </div>
       </section>
 
-      {/* Infrastructure & Module Status Grid */}
-      <div className="cards-grid">
-        {/* Problems Module Card */}
+      {/* Quick Platform Metrics Banner */}
+      <div
+        style={{
+          display: 'flex',
+          justify: 'center',
+          gap: '2.5rem',
+          flexWrap: 'wrap',
+          margin: '2rem auto 3rem auto',
+          padding: '1.25rem',
+          background: 'rgba(255, 255, 255, 0.03)',
+          border: '1px solid var(--border-color)',
+          borderRadius: 'var(--radius-md)',
+          maxWidth: '800px',
+          textAlign: 'center',
+        }}
+      >
+        <div>
+          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-cyan)' }}>12 Core Topics</div>
+          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Arrays to Dynamic Programming</div>
+        </div>
+        <div style={{ borderLeft: '1px solid var(--border-color)', paddingLeft: '2.5rem' }}>
+          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-cyan)' }}>36 Practice Problems</div>
+          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Easy, Medium &amp; Hard Challenges</div>
+        </div>
+        <div style={{ borderLeft: '1px solid var(--border-color)', paddingLeft: '2.5rem' }}>
+          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-cyan)' }}>Python &amp; C++</div>
+          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Isolated Docker Execution</div>
+        </div>
+      </div>
+
+      {/* Feature Cards Grid */}
+      <div className="cards-grid" style={{ marginBottom: '3rem' }}>
+        {/* Adaptive Recommendations Card */}
         <div className="card">
-          <div className="card-icon">📚</div>
-          <h3 className="card-title">Problem System</h3>
-          <p className="card-desc">36 Challenges across 12 topics (Arrays, DP, Graphs, etc.) with public/hidden test cases.</p>
-          <div className="card-status">
-            <span>Module Status</span>
-            <span className="status-indicator status-active">● Active</span>
-          </div>
+          <div className="card-icon">🎯</div>
+          <h3 className="card-title">Adaptive Recommendations</h3>
+          <p className="card-desc">
+            Get personalized problem suggestions based on your skill gaps, confidence, and solving history.
+          </p>
         </div>
 
-        {/* Auth Module Card */}
+        {/* Diagnostic Skill Assessment Card */}
         <div className="card">
-          <div className="card-icon">🔐</div>
-          <h3 className="card-title">Authentication Module</h3>
-          <p className="card-desc">JWT Access Tokens + Argon2 Password Hashing with USER / ADMIN role checks.</p>
-          <div className="card-status">
-            <span>Module Status</span>
-            <span className="status-indicator status-active">● Active</span>
-          </div>
+          <div className="card-icon">🧠</div>
+          <h3 className="card-title">Diagnostic Skill Assessment</h3>
+          <p className="card-desc">
+            Assess your programming skills across core data structure and algorithm topics.
+          </p>
         </div>
 
-        {/* Backend Card */}
+        {/* Isolated Code Execution Card */}
         <div className="card">
           <div className="card-icon">⚡</div>
-          <h3 className="card-title">FastAPI Backend</h3>
-          <p className="card-desc">Python 3 async backend framework with Pydantic & CORS setup.</p>
-          <div className="card-status">
-            <span>Status</span>
-            <span className="status-indicator">
-              {loading ? (
-                <span className="status-pending">Checking...</span>
-              ) : error ? (
-                <span className="status-error">● Offline ({error})</span>
-              ) : (
-                <span className="status-active">● Connected</span>
-              )}
-            </span>
-          </div>
+          <h3 className="card-title">Isolated Code Execution</h3>
+          <p className="card-desc">
+            Run Python and C++ solutions in isolated Docker containers with automated test-case evaluation.
+          </p>
         </div>
 
-        {/* PostgreSQL Card */}
+        {/* Progress & Gamification Card */}
         <div className="card">
-          <div className="card-icon">🐘</div>
-          <h3 className="card-title">PostgreSQL Database</h3>
-          <p className="card-desc">SQLAlchemy 2.x & Alembic schema for topics, problems, and test cases.</p>
-          <div className="card-status">
-            <span>Status</span>
-            <span className="status-indicator">
-              {loading ? (
-                <span className="status-pending">Checking...</span>
-              ) : health?.services?.database?.status === 'connected' ? (
-                <span className="status-active">● Connected (Port 5432)</span>
-              ) : (
-                <span className="status-error">● Disconnected</span>
-              )}
-            </span>
-          </div>
+          <div className="card-icon">🏆</div>
+          <h3 className="card-title">Progress &amp; Gamification</h3>
+          <p className="card-desc">
+            Track your skills, submissions, XP, levels, streaks, and achievement badges.
+          </p>
         </div>
       </div>
 
       <footer className="footer">
-        CodeArena Platform &bull; Module 3 Problems & Topics &bull; Academic Mini-Project
+        CodeArena &bull; Secure Programming Practice &amp; Skill Evaluation Platform
       </footer>
     </div>
   );
