@@ -13,6 +13,7 @@ import { DiagnosticPage } from './pages/DiagnosticPage';
 import { SkillsPage } from './pages/SkillsPage';
 import { RecommendationsPage } from './pages/RecommendationsPage';
 import { GamificationPage } from './pages/GamificationPage';
+import { DashboardPage } from './pages/DashboardPage';
 import './App.css';
 
 function HomePage() {
@@ -153,6 +154,14 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/problems" element={<ProblemsPage />} />
               <Route path="/problems/:id" element={<ProblemDetailPage />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <DashboardPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/diagnostic"
                 element={

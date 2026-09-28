@@ -26,6 +26,9 @@ export function Navbar() {
 
         {user ? (
           <>
+            <Link to="/dashboard" className="nav-link">
+              Dashboard
+            </Link>
             <Link to="/diagnostic" className="nav-link">
               Diagnostic
             </Link>

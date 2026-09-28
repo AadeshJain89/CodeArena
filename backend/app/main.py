@@ -13,6 +13,7 @@ from app.api.diagnostic import router as diagnostic_router
 from app.api.skills import router as skills_router
 from app.api.recommendation import router as recommendation_router
 from app.api.gamification import router as gamification_router
+from app.api.analytics import router as analytics_router
 from app.core.config import settings
 from app.core.db import engine
 from app.core.redis import redis_client
@@ -106,6 +107,12 @@ app.include_router(
     gamification_router,
     prefix=f"{settings.API_V1_STR}",
     tags=["Gamification"],
+)
+
+app.include_router(
+    analytics_router,
+    prefix=f"{settings.API_V1_STR}",
+    tags=["Analytics"],
 )
 
 
