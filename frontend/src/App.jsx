@@ -10,6 +10,7 @@ import { ProblemsPage } from './pages/ProblemsPage';
 import { ProblemDetailPage } from './pages/ProblemDetailPage';
 import { SubmissionsPage } from './pages/SubmissionsPage';
 import { DiagnosticPage } from './pages/DiagnosticPage';
+import { SkillsPage } from './pages/SkillsPage';
 import './App.css';
 
 function HomePage() {
@@ -155,6 +156,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <DiagnosticPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/skills"
+                element={
+                  <ProtectedRoute>
+                    <SkillsPage />
                   </ProtectedRoute>
                 }
               />

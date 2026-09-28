@@ -16,6 +16,7 @@ from app.schemas.diagnostic import (
     DiagnosticResultResponse,
     TopicResultItem,
 )
+from app.schemas.skills import SkillProfileResponse
 
 __all__ = [
     "UserRegister",
@@ -40,4 +41,5 @@ __all__ = [
     "DiagnosticSubmitRequest",
     "DiagnosticResultResponse",
     "TopicResultItem",
+    "SkillProfileResponse",
 ]

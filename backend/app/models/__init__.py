@@ -9,6 +9,7 @@ from app.models.submission_test_result import SubmissionTestResult
 from app.models.diagnostic_assessment import DiagnosticAssessment
 from app.models.diagnostic_response import DiagnosticResponse
 from app.models.diagnostic_assessment_question import DiagnosticAssessmentQuestion
+from app.models.skill_profile import SkillProfile
 
 __all__ = [
     "Base",
@@ -24,4 +25,5 @@ __all__ = [
     "DiagnosticAssessment",
     "DiagnosticResponse",
     "DiagnosticAssessmentQuestion",
+    "SkillProfile",
 ]

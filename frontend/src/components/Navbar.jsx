@@ -29,6 +29,9 @@ export function Navbar() {
             <Link to="/diagnostic" className="nav-link">
               Diagnostic
             </Link>
+            <Link to="/skills" className="nav-link">
+              Skill Profile
+            </Link>
             <Link to="/submissions" className="nav-link">
               Submissions
             </Link>

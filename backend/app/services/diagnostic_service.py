@@ -16,6 +16,9 @@ from app.schemas.diagnostic import (
     DiagnosticResultResponse,
     TopicResultItem,
 )
+from app.services.slre_service import SLREService
+
+slre_service = SLREService()
 
 
 def is_answer_correct(selected: str, correct_opt: str, options: List[str] = None) -> bool:
@@ -325,5 +328,9 @@ class DiagnosticService:
 
         await db.commit()
         await db.refresh(assessment)
+
+        # Trigger SLRE skill profile initialization for all 12 topics
+        await slre_service.initialize_skills_from_diagnostic(db, user_id=user_id, assessment=assessment)
+        await db.commit()
 
         return await self.get_assessment(db, user_id=user_id, assessment_id=assessment_id)

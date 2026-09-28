@@ -15,11 +15,13 @@ from app.schemas.submission import (
     SubmissionTestResultResponse,
 )
 from app.services.execution_service import ExecutionService
+from app.services.slre_service import SLREService
 
 
 class SubmissionService:
     def __init__(self):
         self.execution_service = ExecutionService()
+        self.slre_service = SLREService()
 
     async def create_submission(
         self,
@@ -106,6 +108,10 @@ class SubmissionService:
 
         await db.commit()
         await db.refresh(submission)
+
+        # Trigger SLRE skill profile updates for problem topics
+        await self.slre_service.process_submission_for_skills(db, submission=submission)
+        await db.commit()
 
         return SubmissionResponse(
             id=submission.id,

@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from typing import List, Optional, TYPE_CHECKING
-from sqlalchemy import String, Text, DateTime, Integer, Float, ForeignKey, func
+from sqlalchemy import String, Text, DateTime, Integer, Float, Boolean, ForeignKey, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
@@ -25,6 +25,7 @@ class Submission(Base):
     failed_tests: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     execution_time_ms: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
     memory_used_mb: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
+    is_processed_for_skills: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false", nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),
