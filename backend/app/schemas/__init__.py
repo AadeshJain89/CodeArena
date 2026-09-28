@@ -1,7 +1,7 @@
 from app.schemas.user import UserRegister, UserLogin, UserResponse, Token, TokenData
 from app.schemas.topic import TopicResponse
-from app.schemas.test_case import TestCasePublic
-from app.schemas.problem import ProblemListItem, ProblemDetail, PaginatedProblemResponse
+from app.schemas.test_case import TestCasePublic, TestCaseCreate, TestCaseUpdate, TestCaseAdminResponse
+from app.schemas.problem import ProblemListItem, ProblemDetail, PaginatedProblemResponse, ProblemCreate, ProblemUpdate, AdminProblemDetail
 from app.schemas.execution import ExecutionRequest, ExecutionResponse, TestResultItem
 from app.schemas.submission import (
     SubmissionCreate,
@@ -29,9 +29,15 @@ __all__ = [
     "TokenData",
     "TopicResponse",
     "TestCasePublic",
+    "TestCaseCreate",
+    "TestCaseUpdate",
+    "TestCaseAdminResponse",
     "ProblemListItem",
     "ProblemDetail",
     "PaginatedProblemResponse",
+    "ProblemCreate",
+    "ProblemUpdate",
+    "AdminProblemDetail",
     "ExecutionRequest",
     "ExecutionResponse",
     "TestResultItem",

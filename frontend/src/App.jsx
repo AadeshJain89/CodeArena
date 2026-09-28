@@ -14,6 +14,7 @@ import { SkillsPage } from './pages/SkillsPage';
 import { RecommendationsPage } from './pages/RecommendationsPage';
 import { GamificationPage } from './pages/GamificationPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { AdminPage } from './pages/AdminPage';
 import './App.css';
 
 function HomePage() {
@@ -159,6 +160,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <DashboardPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute>
+                    <AdminPage />
                   </ProtectedRoute>
                 }
               />

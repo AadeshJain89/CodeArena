@@ -29,6 +29,11 @@ export function Navbar() {
             <Link to="/dashboard" className="nav-link">
               Dashboard
             </Link>
+            {user.role === 'ADMIN' && (
+              <Link to="/admin" className="nav-link" style={{ color: 'var(--accent-cyan)' }}>
+                Admin
+              </Link>
+            )}
             <Link to="/diagnostic" className="nav-link">
               Diagnostic
             </Link>
